@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  <title>CNC Monitoring Device</title>
+
+  <style>
+    .main-container {
+
+   <!-- background-color: #80deea; -->
+     
+    }
+
+    .card-header {
+
+       background-color: #ffc107;
+
+    
+    }
+    .header-card{
+      background-color: #00a8ff
+    }
+
+    .panel-heading,
+    .panel-body,
+    h6 {
+
+      font-weight: bolder;
+
+      font-size: 15px;
+
+
+
+    }
+
+    body {
+      font-weight: bold
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+
+  <div class="container-fluid main-container">
+
+    <center>
+
+      <br />
+
+      <p></p>
+
+      <form method="POST">
+
+        <div class="card">
+
+          <div class="card-header ">
+
+            <div class="row" style="margin-top:10px">
+
+              <div class="col-md-8">
+
+                <h2>Alarm Screen</h2>
+
+              </div>
+
+              <div class="col-md-1" >
+
+                <div class="panel panel-default">
+
+                 
+
+                <input type="hidden" name="jobId"><button type="button"  class="btn btn-primary " value={{jobId}}>JobId : {{jobId}}</button>
+
+                </div>
+
+          </div>
+
+          <div class="col-md-2" style="padding-left:60px">
+
+            <div class="panel panel-default">
+
+             <button type="submit" class="btn btn-danger" id="alarmON" value="AlarmOn">Alarm On</button>
+
+            </div>
+
+          </div>
+
+            </div>
+
+          </div>
+        
+        <div class="card-body header-card">
+
+          <div class="row" style="padding-right:40px">
+
+            <div class="col-md-3">
+
+              <div class="panel panel-default">
+
+                <div class="panel-heading"><input type="hidden" name="user" value={{user}}>
+                  <h6>UserName</h6>
+                </div>
+                <p></p>
+
+                <div class="panel-body">
+                  <h6>{{user}}</h6>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="col-md-1">
+
+              <div class="panel panel-default">
+
+                <div class="panel-heading">
+                  <h6>Shift</h6>
+                </div>
+                <p></p>
+
+                <div class="panel-body">
+                  <h6><input type="hidden" name="shift" value={{shift}}>{{shift}}</h6>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="col-md-2">
+
+              <div class="panel panel-default">
+
+                <div class="panel-heading">
+                  <h6>Machine ID</h6>
+                </div>
+                <p></p>
+
+                <div class="panel-body"><input type="hidden" name="machineId" value={{machineId}}>
+                  <h6>{{machineId}}</h6>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="col-md-2">
+
+              <div class="panel panel-default">
+
+                <div class="panel-heading">
+                  <h6>Componenet</h6>
+                </div>
+
+                <div class="panel-body">
+                  <div class="form-group">
+
+                    <input type="hidden" name="component" value={{components}}>
+                    <h6>{{components}}</h6>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="col-md-2">
+
+              <div class="panel panel-default">
+
+                <div class="panel-heading">
+                  <h6>Model Name</h6>
+                </div>
+
+                <div class="panel-body">
+                  <div class="form-group">
+
+                    <input type="hidden" name="modelName" value={{models}}>
+                    <h6>{{models}}</h6>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="col-md-2">
+
+              <div class="panel panel-default">
+
+                <div class="panel-heading">
+                  <h6>Operation</h6>
+                </div>
+
+                <div class="panel-body">
+                  <div class="form-group">
+
+                    <input type="hidden" name="operation" value='{{operations}}'>
+                    <h6>{{operations}}</h6>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+    </div>
+        <p></p>
+        <p></p>
+        <p></p><br><br>
+        <br><br>
+
+
+        <div class="card-body">
+
+          <div class="container login-container">
+
+            <div class="form-group form-group-lg">
+              <label class="col-sm-2 control-label" for="lg">Alarm Reason</label>
+              <select id="alarmReason" class="custom-select col-sm-4" name="alarmReason" width="100" required>
+                <option name="reason1" value="Program Error Alarm">Program Error Alarm </option>
+                <option name="reason2" value="Safety Alarm">Safety Alarm</option>
+                <option name="reason3" value="Machine Hardware fail Alarm">Machine Hardware fail Alarm</option>
+                <option name="reason4" value="Preventive Maintenance Alarm">Preventive Maintenance Alarm</option>
+                <option name="reason5" value="Tooling Alarm">Tooling Alarm</option>
+                <option name="others" value="others">Other</option>
+              </select>
+            </div>
+
+            <script>
+                    $(document).ready(function() {
+        $('#alarmReason').change(function () {
+          selection = $(this).val();
+          switch (selection) {
+            case 'others':
+              $('#manualReason').show();
+              $('#otherReason').prop('autofocus',true)
+              break;
+
+            default:
+              $('#manualReason').hide();
+              $('#otherReason').removeAttr('required')
+              break;
+          }
+        });
+    });
+            </script>
+
+            <!-- manual input box  -->
+            <div class="form-group" style="display:none" id="manualReason">
+              <div class="form-group">
+                <label for="comment">Enter Reason Manually</label>
+                <textarea name="otherReason" id="otherReason" class="form-control" rows="5" id="comment"  autofocus required></textarea>
+              </div>
+            </div><br>
+
+
+
+
+
+            <button type="submit" name="submit" id="submit" class="btn btn-primary btn-lg">Submit</button><br /><br />
+
+
+
+      </form>
+
+
+
+  </div>
+
+  <p></p>
+
+  </div>
+
+  <p></p>
+
+  </div>
+
+  </center>
+
+  <p></p>
+  </div>
+
+
+
+  <!-- Modal -->
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+
+        <div class="modal-header">
+
+          <h5 class="modal-title" id="exampleModalLabel">Do you really want to shutdown</h5>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+            <span aria-hidden="true">&times;</span>
+
+          </button>
+
+        </div>
+
+        <div class="modal-body">
+
+          ...
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+          <a href="http://127.0.0.1:5000/shutdown" <button type="button" class="btn btn-primary">Shutdown</button></a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+</body>
+
+</html>
