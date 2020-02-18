@@ -80,7 +80,7 @@
            <div class="col-md-1" style="padding-left:60px">
               <div class="panel panel-default">
 
-            <a href="http://127.0.0.1:5000/tempRelease"><button type="button" class="btn btn-danger"
+            <a href="http://127.0.0.1:3000/tempRelease"><button type="button" class="btn btn-danger"
               value=""><i class="fas fa-tools" style="padding-right:6px"></i>Tool Change</button></a>
                 </div>
 
@@ -92,12 +92,12 @@
             
                 function sendRequest(){
                     $.ajax({
-                      url: "http://127.0.0.1:5000/getCurrentSignal",
+                      url: "http://127.0.0.1:3000/getCurrentSignal",
                       success: 
                         function(data){
 
                           switch(data['Message']){
-                            case "Alarm ON": window.location.href="http://127.0.0.1:5000/alarmScreen";
+                            case "Alarm ON": window.location.href="http://127.0.0.1:3000/alarmScreen";
                                    break;  
 
                             case "Machine Idle": $("#liveSignal").css('background-color','#eb2f06');
@@ -162,7 +162,7 @@
 
 
 
-                  <a href="http://127.0.0.1:5000/login"><button type="button" class="btn btn-light"
+                  <a href="http://127.0.0.1:3000/login"><button type="button" class="btn btn-light"
                       value=""><i class="fas fa-sign-out-alt" style="padding-right:6px"></i>Logout</button></a>
 
                 </div>
@@ -258,7 +258,7 @@
                 <div class="panel-body">
                   <div class="form-group">
 
-                    <a href="http://127.0.0.1:5000/setOperations"><input type="hidden" name="component"
+                    <a href="http://127.0.0.1:3000/setOperations"><input type="hidden" name="component"
                         value={{components}}>
                       <h6>{{components}}</h6>
                     </a>
@@ -281,7 +281,7 @@
                 <div class="panel-body">
                   <div class="form-group">
 
-                    <a href="http://127.0.0.1:5000/setOperations"><input type="hidden" name="modelName"
+                    <a href="http://127.0.0.1:3000/setOperations"><input type="hidden" name="modelName"
                         value={{models}}>
                       <h6>{{models}}</h6>
                     </a>
@@ -303,7 +303,7 @@
                 <div class="panel-body">
                   <div class="form-group">
 
-                    <a href="http://127.0.0.1:5000/setOperations"><input type="hidden" name="operation"
+                    <a href="http://127.0.0.1:3000/setOperations"><input type="hidden" name="operation"
                         value={{operations}}>
                       <h6>{{operations}}</h6>
                     </a>
@@ -423,7 +423,6 @@
                           <td><a href="#">Work 1</a></td>
                           <td>Doe</td>
                           <td>john@example.com</td>
-                          
                         </tr>
                         <tr>
                           <td><a href="#">Work 2</a></td>
@@ -484,7 +483,7 @@
 
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
-          <a href="http://127.0.0.1:5000/shutdown" <button type="button" class="btn btn-primary">Shutdown</button></a>
+          <a href="http://127.0.0.1:3000/shutdown" <button type="button" class="btn btn-primary">Shutdown</button></a>
 
         </div>
 
