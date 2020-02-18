@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>CNC Monitoring Device</title>
+    <style>
+    .main-container{
+      background-color: #80deea;
+    }
+    .card-header{
+      background-color: #ffc107;
+    }
+    .panel-heading,.panel-body,h6{
+      font-weight: bolder;
+      font-size: 15px;
+      
+    }
+    label{
+      font-weight: bolder;
+    }
+    .alert{
+  display:none;
+   }
+    
+    
+    
+    </style>
+  </head>
+  <body>
+
+
+
+    <div class="container-fluid main-container">
+      <center>
+        <br />
+        <p></p>
+        <form method="POST">
+        <div class="card">
+          <div class="card-header ">
+		  <div class="row">
+			  <div class="col-md-11">
+            <h1>CNC Monitoring</h1>
+            </div> 
+            <div class="col-md-1">
+                  <div class="panel-body" style="padding:5px"><a href="http://127.0.0.1:3000/login"><button type="button"  class="btn btn-primary" value="">Logout</button></a></div>
+                </div>
+            
+            </div>	       
+          </div><br>
+          
+          <div class="row" style="padding-left:50px">
+            <div class="col-md-2">
+              <div class="panel panel-default">
+                <div class="panel-heading"><input type="hidden" name="user" value={{user}}><h6>User</h6></div><p></p>
+                <div class="panel-body"><h6>{{user}}</h6></div>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="panel panel-default">
+                <div class="panel-heading"><h6>Shift</h6></div><p></p>
+                <div class="panel-body"><h6><input type="hidden" name="shift" value={{shift}}>{{shift}}</h6></div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="panel panel-default">
+                <div class="panel-heading"><h6>Machine ID</h6></div><p></p>
+                <div class="panel-body"><input type="hidden" name="machineId" value={{machineId}}><h6>{{machineId}}</h6></div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="panel panel-default">
+                <div class="panel-heading"><h6>Componenet</h6></div>
+                <div class="panel-body"><div class="form-group">
+                  <select id="componentName" class="form-control" name="componentName" required>
+                        {% if components %}
+                        {% for component in components %}
+                       <option value="{{component}}">{{component}}</option>
+                       {% endfor %}
+                       {% endif %}
+                      </select>
+                </div></div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="panel panel-default">
+                <div class="panel-heading"><h6>Model Name</h6></div>
+                <div class="panel-body"><div class="form-group">
+                      <select id="modelName" class="form-control" name="modelName" required>
+                        {% if models %}
+                        {% for model in models %}
+                        
+                       <option value={{model.value}}>{{model.code}}</option>
+                       
+                       {% endfor %}
+                       {% endif %}
+                      </select>
+                </div></div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="panel panel-default">
+                <div class="panel-heading"><h6>Operation</h6></div>
+                <div class="panel-body"><div class="form-group">
+                      <select id="operations" class="form-control" name="operation" required>
+                  
+                      </select>
+                </div></div>
+              </div>
+           
+          <p></p><p></p><p></p><br><br>
+           </div>     
+          </div>
+          <div >
+                  <div class="panel-body" style="padding:5px"><button type="submit" name="submit" class="btn btn-primary" value="">Submit</button></div>
+                </div>
+           <br /><br />
+                
+              </form>
+     
+            </div>
+            <p></p>
+          
+          <p></p>
+      </center>
+      <p></p>
+<script>
+        var modelName = document.getElementById("modelName");
+        
+         modelName.onchange = function()  {
+            machineId ="{{machineId}}"; 
+            modelCode = modelName.value;
+            
+            fetch('/getOperations/' + machineId +'/'+modelCode).then(function(response) {
+                response.json().then(function(data) {
+                  console.table(data)
+                  var optionHTML = '';
+                  for (var operation of data.operations) {
+                  optionHTML += '<option value="' + operation.operations + '">' + operation.operations + '</option>';
+                  }
+                  operations.innerHTML = optionHTML;
+                })
+                
+            });
+        }
+    </script>  
+
+    <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Do you really want to shutdown</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+       <a href="http://127.0.0.1:3000/shutdown"<button type="button" class="btn btn-primary">Shutdown</button></a> 
+      </div>
+    </div>
+  </div>
+</div>
+    
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/09ee328891.js" crossorigin="anonymous"></script> 
+
+  <title>CNC Monitoring Device</title>
+
+  <style>
+    .main-container {
+
+      background-color: #80deea;
+
+    }
+
+    .card-header {
+
+      background-color: #ffc107;
+
+    }
+
+    .panel-heading,
+    .panel-body,
+    h6 {
+
+      font-weight: bolder;
+
+      font-size: 15px;
+
+
+
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+
+  <div class="container-fluid main-container">
+
+    <center>
+
+      <br />
+
+      <p></p>
+
+      <form method="POST">
+
+        <div class="card">
+
+          <div class="card-header ">
+
+            <div class="row" style="margin-top:30px">
+
+              <div class="col-md-3">
+
+                <h2>Production Monitoring</h2>
+
+              </div>
+
+              
+
+           <div class="col-md-1" style="padding-left:60px">
+              <div class="panel panel-default">
+
+            <a href="http://127.0.0.1:5000/tempRelease"><button type="button" class="btn btn-danger"
+              value=""><i class="fas fa-tools" style="padding-right:6px"></i>Tool Change</button></a>
+                </div>
+
+              </div>
+
+      <script>
+              $(document).ready(function(){
+                sendRequest();
+            
+                function sendRequest(){
+                    $.ajax({
+                      url: "http://127.0.0.1:5000/getCurrentSignal",
+                      success: 
+                        function(data){
+
+                          switch(data['Message']){
+                            case "Alarm ON": window.location.href="http://127.0.0.1:5000/alarmScreen";
+                                   break;  
+
+                            case "Machine Idle": $("#liveSignal").css('background-color','#eb2f06');
+                                   break;
+                            case "Emergency ON": $("#liveSignal").css('background-color','#ff3838');
+                                   break;
+                            
+                            case "Tool Change": $("#liveSignal").css('background-color','#4b4b4b');
+                                  break;
+                            case "Maintenance": $("#liveSignal").css('background-color','#FFC312');
+                                  break;
+                            case "Cycle ON": $("#liveSignal").css('background-color', '#4cd137');
+                                  break;                                   
+                          }
+                          $('#liveSignal').html(data['Message']);
+                         
+                         
+                      },
+                      //async=true,
+                      complete: function() {
+                     // Schedule the next request when the current one's complete
+                     setTimeout(sendRequest, 2000);
+                   }
+                  });
+                };
+              }
+              );
+
+          
+              
+
+  </script>
+
+
+              <div class="col-md-2" style="padding-left:150px">
+
+                <div class="panel panel-default">
+
+
+
+                  <button type="button" class=" liveSignal btn btn-success" id="liveSignal" value={{liveSignalStatus}}>{{liveSignalStatus}}</button>
+
+                </div>
+
+              </div>
+
+              <div class="col-md-2" style="padding-left:80px">
+
+                <div class="panel panel-default">
+
+                  <button type="submit" data-toggle="modal" data-target=".bd-example-modal-lg"
+                    class="  btn btn-primary " id="shutdown" value="Cycle on">Production : {{productionCount}}</button>
+
+                </div>
+
+              </div>
+
+
+              <div class="col-md-1" >
+
+                <div class="panel panel-default">
+
+
+
+                  <a href="http://127.0.0.1:5000/login"><button type="button" class="btn btn-light"
+                      value=""><i class="fas fa-sign-out-alt" style="padding-right:6px"></i>Logout</button></a>
+
+                </div>
+
+              </div>
+
+
+              
+
+
+              <div class="col-md-1" style="padding-left:30px" >
+
+                <div class="panel panel-default">
+
+                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+
+                    <i class="fa fa-power-off" style="padding-right:6px"></i> Shutdown
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div><br>
+
+          </div>
+
+          <br>
+          <p></p>
+
+          <div class="row" style="padding-right:40px">
+
+            <div class="col-md-3">
+
+              <div class="panel panel-default">
+
+                <div class="panel-heading"><input type="hidden" name="user" value={{user}}>
+                  <h6>UserName</h6>
+                </div>
+                <p></p>
+
+                <div class="panel-body">
+                  <h6>{{user}}</h6>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="col-md-1">
+
+              <div class="panel panel-default">
+
+                <div class="panel-heading">
+                  <h6>Shift</h6>
+                </div>
+                <p></p>
+
+                <div class="panel-body">
+                  <h6><input type="hidden" name="shift" value={{shift}}>{{shift}}</h6>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="col-md-2">
+
+              <div class="panel panel-default">
+
+                <div class="panel-heading">
+                  <h6>Machine ID</h6>
+                </div>
+                <p></p>
+
+                <div class="panel-body"><input type="hidden" name="machineId" value={{machineId}}>
+                  <h6>{{machineId}}</h6>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="col-md-2">
+
+              <div class="panel panel-default">
+
+                <div class="panel-heading">
+                  <h6>Componenet</h6>
+                </div>
+
+                <div class="panel-body">
+                  <div class="form-group">
+
+                    <a href="http://127.0.0.1:5000/setOperations"><input type="hidden" name="component"
+                        value={{components}}>
+                      <h6>{{components}}</h6>
+                    </a>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="col-md-2">
+
+              <div class="panel panel-default">
+
+                <div class="panel-heading">
+                  <h6>Model Name</h6>
+                </div>
+
+                <div class="panel-body">
+                  <div class="form-group">
+
+                    <a href="http://127.0.0.1:5000/setOperations"><input type="hidden" name="modelName"
+                        value={{models}}>
+                      <h6>{{models}}</h6>
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="col-md-2">
+
+              <div class="panel panel-default">
+
+                <div class="panel-heading">
+                  <h6>Operation</h6>
+                </div>
+
+                <div class="panel-body">
+                  <div class="form-group">
+
+                    <a href="http://127.0.0.1:5000/setOperations"><input type="hidden" name="operation"
+                        value={{operations}}>
+                      <h6>{{operations}}</h6>
+                    </a>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+
+
+          </div>
+
+          <p></p>
+          <p></p>
+          <p></p><br><br>
+
+          {% if snackBar %}
+          <div class="alert alert-success" role="alert" style="background-color:#2ecc71;color:black">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <center><strong>Job Status OK</strong> Start Cycle ....</center>
+          </div>
+          {% endif %}
+
+          <script>
+      window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+          $(this).remove();
+        });
+   },3000);
+            </script>
+
+
+
+
+  
+  
+
+          <br><br>
+
+
+
+          <div class="card-body">
+
+            <div class="container login-container">
+
+
+
+              <div class="form-group">
+
+                <label ">Enter Job Id</label>
+
+                  <input
+
+                    type=" text" class="form-control col-sm-5" id="jobid" placeholder="Enter job id" name="jobId"
+                  autofocus required />
+
+              </div>
+
+
+
+              <button type="submit" name="submit" id="submit" class="btn btn-primary btn-lg">Submit</button><br /><br />
+
+
+
+      </form>
+
+
+
+  </div>
+
+  <p></p>
+
+  </div>
+
+  <p></p>
+
+  </div>
+
+  </center>
+
+  <p></p>
+  </div>
+
+  <!-- Large modal -->
+
+
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <section id="tabs" class="project-tab">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <nav>
+                  <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <h3 style="color:#0fbcf9">Detailed Production Report</h3>
+                  </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <table class="table" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>Model</th>
+                          <th>Produced</th>
+                          <th>NC</th>
+                          <th>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><a href="#">Work 1</a></td>
+                          <td>Doe</td>
+                          <td>john@example.com</td>
+                          
+                        </tr>
+                        <tr>
+                          <td><a href="#">Work 2</a></td>
+                          <td>Moe</td>
+                          <td>mary@example.com</td>
+                        </tr>
+                        <tr>
+                          <td><a href="#">Work 3</a></td>
+                          <td>Dooley</td>
+                          <td>july@example.com</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+               
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <!-- Modal -->
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+
+        <div class="modal-header">
+
+          <h5 class="modal-title" id="exampleModalLabel">Do you really want to shutdown</h5>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+            <span aria-hidden="true">&times;</span>
+
+          </button>
+
+        </div>
+
+        <div class="modal-body">
+
+          ...
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+          <a href="http://127.0.0.1:5000/shutdown" <button type="button" class="btn btn-primary">Shutdown</button></a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+</body>
+
+</html>

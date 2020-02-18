@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <title>CNC Monitoring Device</title>
+      
+      <style>
+      
+
+.main-container,body
+{
+ background-color:#f5f5f5;
+}
+ .login
+{
+      background-color: #00b0ff;
+      color:black;
+}
+
+.card-header{
+  background-color: #ffc107;
+}
+
+.login-container{
+  width:500px;
+  height: auto;
+  background-color: #f5f5f5;
+}
+.panel-heading{
+  background-color: #00c853;
+  font-size: 30px;
+  font-weight: bold;
+}
+.panel-body{
+  background-color: #9cff57;
+  font-size: 25px;
+}
+
+.card{
+  background-color: #e0e0e0 ;
+} 
+
+      
+      
+      </style>
+</head>
+<body>
+ <div class="container-fluid main-container">
+ <div class="container">  
+   <center>
+     <br>
+     <p></p>
+      <div class="card">
+        <div class="card-header ">
+         <div class="row">
+           <div class="col-md-10">
+              <a href="http://127.0.0.1:3000/tempRelease" style="text-decoration:none; color:inherit;"><h1>Login </h1></a>
+            </div> 
+            <div class="col-md-2">
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+
+               Shutdown </button>
+            
+            </div> 
+          
+            </div>
+          </div>   
+            <div class="panel panel-default">
+              <div class="panel-heading">Machine ID : {{machineId}}</div>
+             
+            </div>
+            {% if 'null' not in status  %}
+            <div class="panel panel-default">
+              <div class="panel-heading">{{status}}</div>
+            </div>
+            {% endif %}
+            <div class="card-body">
+              <div class="container login-container">
+              <form method="POST" action="">
+                <div class="form-group">
+                  <label for="exampleInputEmail1" >Operator Id</label>
+                  <input type="text" class="form-control"  placeholder="Username" name="username" required >
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Password</label>
+                  <input type="password" class="form-control" placeholder="Password" name="password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button><br><br>
+              </form>
+            </div>
+            <p></p> 
+            </div>
+            <p></p>
+          </div>
+   </center>
+  </div>
+  <p></p> 
+ </div>
+
+ <!-- Modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLabel">Do you really want to shutdown</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+          <span aria-hidden="true">&times;</span>
+
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        ...
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+       <a href="http://127.0.0.1:3000/shutdown"<button type="button" class="btn btn-primary">Shutdown</button></a> 
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
+
+
+
+
