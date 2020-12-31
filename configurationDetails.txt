@@ -53,6 +53,15 @@ VCC                 PIN 2 OR 4
 GROUND PINS TO BE USED FROM ANY PIN MENTIONED ABOVE 
 
 
+***************Autostart chromium in kiosk mode**********************
+/etc/xdg/lxsession/LXDE-pi/autostart
+@xset s off   #screen saver off    
+@xset -dpms   
+@xset s noblank   #no blank screen
+@chromium-browser --kiosk http://google.com/  # load chromium after boot and open the website in full screen mode
+
+
+
 
 
 
