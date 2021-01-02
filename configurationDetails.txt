@@ -55,6 +55,13 @@ GROUND PINS TO BE USED FROM ANY PIN MENTIONED ABOVE
 
 ***************Autostart chromium in kiosk mode**********************
 /etc/xdg/lxsession/LXDE-pi/autostart
+
+#@lxpanel --profile LXDE-pi
+#@pcmanfm --desktop --profile LXDE-pi
+#@xscreensaver -no-splash
+#@point-rpi
+#@/home/pi/Desktop/App2/./App
+
 @xset s off   #screen saver off    
 @xset -dpms   
 @xset s noblank   #no blank screen
