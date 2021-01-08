@@ -68,6 +68,12 @@ GROUND PINS TO BE USED FROM ANY PIN MENTIONED ABOVE
 @chromium-browser --kiosk http://google.com/  # load chromium after boot and open the website in full screen mode
 
 
+disbale sleep mode in raspberry pi
+$ sudo nano /etc/lightdm/lightdm.conf
+# don't sleep the screen
+xserver-command=X -s 0 dpms
+
+
 
 
 
